@@ -155,6 +155,27 @@ exista en el back real — ver `docs/pedido-back-agente.md`):
   estado local, así que no se puede falsear desde el cliente.
 - `useSession()` trae el nombre para el header y el sidebar.
 
+### Staff: "ver como" un cliente
+
+`/admin` es para que alguien de Tour Experto vea la app exactamente como la ve un
+cliente, con sus datos reales. No es un superusuario: el back le arma **la sesión
+normal de ese cliente**, así que todas las pantallas funcionan igual y no hay
+queries especiales.
+
+- Entrar: `/admin` pide el mail → magic link a `/admin/verify` (un solo uso, vence
+  a los 15 min) → cookie `pwa_staff` por 8 h. Sólo pueden los mails de
+  `PWA_STAFF_EMAILS` en el back; al resto se le responde igual, pero no se manda
+  nada.
+- Ver como: se busca por **email** o **número de oportunidad**. El back pisa
+  `pwa_token` con una sesión de ese cliente que dura 2 h, marcada con el mail del
+  staff, y loguea quién miró a quién. No toca el último login del cliente.
+- `/auth/session` devuelve `staff` con valor sólo en un "ver como". Con eso
+  `default.vue` muestra la franja morada *"Estás viendo la app como…"*, y el
+  logout (el de la franja, el header o el sidebar) vuelve a `/admin` en vez de a
+  `/login`.
+- Al cambiar de cliente hay que llamar `reset()` de `useSession`: el nombre queda
+  cacheado en `useState` y si no, el header muestra el del cliente anterior.
+
 ## PWA
 
 `@vite-pwa/nuxt` con manifest inline en `nuxt.config.ts` (no hay

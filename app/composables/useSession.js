@@ -1,5 +1,7 @@
 export function useSession() {
   const name = useState('session:name', () => '')
+  // email del staff cuando la sesión es un "ver como"; vacío en la sesión normal del cliente
+  const staff = useState('session:staff', () => '')
   const { logout } = useAuth()
 
   async function loadName() {
@@ -7,16 +9,23 @@ export function useSession() {
     try {
       const usuario = await apiFetch('/auth/session')
       name.value = usuario?.nombre || ''
+      staff.value = usuario?.staff || ''
     } catch {
-      name.value = ''
+      reset()
     }
   }
 
-  async function signOut() {
-    await logout()
+  function reset() {
     name.value = ''
-    await navigateTo('/login')
+    staff.value = ''
   }
 
-  return { name, loadName, signOut }
+  async function signOut() {
+    const wasStaff = Boolean(staff.value)
+    await logout()
+    reset()
+    await navigateTo(wasStaff ? '/admin' : '/login')
+  }
+
+  return { name, staff, loadName, signOut, reset }
 }
