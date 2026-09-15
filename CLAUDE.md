@@ -170,7 +170,10 @@ queries especiales.
 - La sesión de staff **no es un JWT**: es un token al azar guardado hasheado en
   la DB, así que no se puede forjar con el secreto y "Cerrar sesión de staff"
   (en `/admin`) la invalida en el back y borra también la cookie del "ver como".
-- Ver como: se busca por **email** o **número de oportunidad**. El back pisa
+- Ver como: `/admin` lista los clientes que tienen reservas (`GET /staff/clientes`,
+  hasta 50, primero los que viajan más pronto) con un buscador por nombre, email,
+  número de oportunidad o programa; el ojito de cada fila abre la app como ese
+  cliente mandando su id. El back pisa
   `pwa_token` con una sesión de ese cliente marcada con el mail del staff, que
   dura 2 h (o menos, si la sesión de staff vence antes), y loguea quién miró a
   quién. No toca el último login del cliente. Si el staff usa el mismo

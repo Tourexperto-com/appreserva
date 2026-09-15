@@ -28,10 +28,15 @@ export function useAuth() {
     return apiFetch('/staff/auth/logout', { method: 'POST' })
   }
 
-  // search: email del cliente o número de oportunidad
-  function viewAs(search) {
-    return apiFetch('/staff/ver-como', { method: 'POST', body: { busqueda: search } })
+  // search: nombre, email, número de oportunidad o programa; vacío trae los que viajan más pronto
+  function listClients(search) {
+    return apiFetch('/staff/clientes', { query: { q: search } })
   }
 
-  return { requestMagicLink, verify, logout, requestStaffLink, verifyStaff, getStaffSession, logoutStaff, viewAs }
+  // client: id del cliente (desde el listado), email o número de oportunidad
+  function viewAs(client) {
+    return apiFetch('/staff/ver-como', { method: 'POST', body: { busqueda: client } })
+  }
+
+  return { requestMagicLink, verify, logout, requestStaffLink, verifyStaff, getStaffSession, logoutStaff, listClients, viewAs }
 }
