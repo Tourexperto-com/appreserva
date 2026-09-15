@@ -162,19 +162,27 @@ cliente, con sus datos reales. No es un superusuario: el back le arma **la sesi�
 normal de ese cliente**, así que todas las pantallas funcionan igual y no hay
 queries especiales.
 
-- Entrar: `/admin` pide el mail → magic link a `/admin/verify` (un solo uso, vence
-  a los 15 min) → cookie `pwa_staff` por 8 h. Sólo pueden los mails de
-  `PWA_STAFF_EMAILS` en el back; al resto se le responde igual, pero no se manda
-  nada.
+- Entrar: `/admin` pide el mail → magic link a `/admin/verify`, que **canjea el
+  link recién al tocar "Entrar al panel"** (un solo uso, vence a los 15 min; el
+  botón evita que un escáner de mail lo gaste) → cookie `pwa_staff` por 8 h.
+  Sólo pueden los mails de `PWA_STAFF_EMAILS` en el back; al resto se le
+  responde igual, pero no se manda nada.
+- La sesión de staff **no es un JWT**: es un token al azar guardado hasheado en
+  la DB, así que no se puede forjar con el secreto y "Cerrar sesión de staff"
+  (en `/admin`) la invalida en el back y borra también la cookie del "ver como".
 - Ver como: se busca por **email** o **número de oportunidad**. El back pisa
-  `pwa_token` con una sesión de ese cliente que dura 2 h, marcada con el mail del
-  staff, y loguea quién miró a quién. No toca el último login del cliente.
+  `pwa_token` con una sesión de ese cliente marcada con el mail del staff, que
+  dura 2 h (o menos, si la sesión de staff vence antes), y loguea quién miró a
+  quién. No toca el último login del cliente. Si el staff usa el mismo
+  navegador para su propia cuenta de cliente, esa sesión se pierde.
 - `/auth/session` devuelve `staff` con valor sólo en un "ver como". Con eso
-  `default.vue` muestra la franja morada *"Estás viendo la app como…"*, y el
-  logout (el de la franja, el header o el sidebar) vuelve a `/admin` en vez de a
-  `/login`.
-- Al cambiar de cliente hay que llamar `reset()` de `useSession`: el nombre queda
-  cacheado en `useState` y si no, el header muestra el del cliente anterior.
+  `default.vue` muestra la franja morada *"Estás viendo la app como…"* (nombre y
+  mail del cliente). El logout de la franja, el header o el sidebar corta sólo
+  el "ver como" y vuelve a `/admin`.
+- `middleware/auth.js` vuelca `/auth/session` en `useSession` en cada navegación
+  (si otra pestaña cambió de cliente, la franja se corrige) y, si vence un "ver
+  como", manda a `/admin` en vez de a `/login`. Al abrir otro cliente desde
+  `/admin` se llama `reset()` para no mostrar el nombre del anterior.
 
 ## PWA
 

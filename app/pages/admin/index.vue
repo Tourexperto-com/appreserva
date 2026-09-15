@@ -14,7 +14,17 @@
         </ButtonPrimary>
       </form>
 
-      <p class="text-gris text-xs lg:text-sm font-medium">Ingresaste como {{ staffEmail }}.</p>
+      <div class="w-full flex flex-wrap items-center justify-between gap-3">
+        <p class="text-gris text-xs lg:text-sm font-medium">Ingresaste como {{ staffEmail }}.</p>
+        <button
+          type="button"
+          class="text-magenta text-xs lg:text-sm font-bold underline cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta"
+          :disabled="loading"
+          @click="closeStaffSession"
+        >
+          Cerrar sesión de staff
+        </button>
+      </div>
     </template>
 
     <template v-else>
@@ -40,7 +50,7 @@
 <script setup>
 definePageMeta({ layout: 'auth' })
 
-const { requestStaffLink, getStaffSession, viewAs } = useAuth()
+const { requestStaffLink, getStaffSession, logoutStaff, viewAs } = useAuth()
 const { reset } = useSession()
 
 const staffEmail = ref('')
@@ -66,6 +76,23 @@ async function requestLink() {
     sent.value = true
   } catch {
     error.value = 'No se pudo enviar el link. Probá de nuevo.'
+  } finally {
+    loading.value = false
+  }
+}
+
+async function closeStaffSession() {
+  error.value = ''
+  loading.value = true
+
+  try {
+    await logoutStaff()
+    reset()
+    staffEmail.value = ''
+    search.value = ''
+    sent.value = false
+  } catch {
+    error.value = 'No se pudo cerrar la sesión. Probá de nuevo.'
   } finally {
     loading.value = false
   }

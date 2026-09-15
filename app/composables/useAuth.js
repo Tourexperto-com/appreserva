@@ -23,10 +23,15 @@ export function useAuth() {
     return apiFetch('/staff/session')
   }
 
+  // cierra la sesión de staff y también el "ver como" que hubiera abierto
+  function logoutStaff() {
+    return apiFetch('/staff/auth/logout', { method: 'POST' })
+  }
+
   // search: email del cliente o número de oportunidad
   function viewAs(search) {
     return apiFetch('/staff/ver-como', { method: 'POST', body: { busqueda: search } })
   }
 
-  return { requestMagicLink, verify, logout, requestStaffLink, verifyStaff, getStaffSession, viewAs }
+  return { requestMagicLink, verify, logout, requestStaffLink, verifyStaff, getStaffSession, logoutStaff, viewAs }
 }

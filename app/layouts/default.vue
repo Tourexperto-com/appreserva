@@ -9,7 +9,8 @@
         class="w-full flex items-center justify-between gap-3 sticky top-0 z-20 bg-morado text-white text-xs lg:text-sm font-medium px-5 md:px-30 lg:px-16 py-2.5"
       >
         <span class="min-w-0 truncate">
-          Estás viendo la app como <strong class="font-bold">{{ name || 'este cliente' }}</strong>
+          Estás viendo la app como <strong class="font-bold">{{ name || email || 'este cliente' }}</strong>
+          <span v-if="name && email" class="hidden md:inline opacity-80"> · {{ email }}</span>
         </span>
         <button
           type="button"
@@ -33,7 +34,7 @@
 
 <script setup>
 const route = useRoute()
-const { name, staff, loadName, signOut } = useSession()
+const { name, email, staff, loadName, signOut } = useSession()
 
 onMounted(loadName)
 
