@@ -12,12 +12,12 @@
     <State
       :pending="pending"
       :error="error"
-      :empty="!contactos?.length"
+      :empty="!visibles?.length"
       error-text="No se pudieron cargar los contactos."
       empty-text="Todavía no hay contactos disponibles."
     >
       <ul class="w-full flex flex-col gap-3">
-        <li v-for="(contacto, i) in contactos" :key="contacto.id || i">
+        <li v-for="(contacto, i) in visibles" :key="contacto.id || i">
           <Row :title="contacto.nombre" :subtitle="subtitulo(contacto)">
             <template #actions>
               <a
@@ -70,6 +70,13 @@ const agente = computed(() => {
 })
 
 const { data: contactos, pending, error } = useReservaContactos(route.params.id)
+
+// el contacto de Tour Experto es el fallback: solo se muestra si no hay ningun operador cargado
+const visibles = computed(() => {
+  const todos = contactos.value || []
+  const operadores = todos.filter(c => c.tipo !== 'tourexperto')
+  return operadores.length ? operadores : todos
+})
 
 function subtitulo(contacto) {
   if (contacto.tipo === 'tourexperto') return null
