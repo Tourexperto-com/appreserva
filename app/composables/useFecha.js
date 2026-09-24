@@ -1,6 +1,7 @@
 export function formatFecha(iso) {
   if (!iso) return ''
-  const d = new Date(iso)
+  // a mediodía: el back manda la fecha a medianoche UTC y acá se leía un día antes
+  const d = new Date(String(iso).substring(0, 10) + 'T12:00:00')
   return d.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
