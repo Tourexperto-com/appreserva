@@ -45,6 +45,7 @@
 <script setup>
 const TELEFONOS = [
   { country: 'argentina', numero: '+541152372827' },
+  { country: 'brazil', numero: '+552120421626' },
   { country: 'chile', numero: '+56224053096' },
   { country: 'colombia', numero: '+576017702903' },
   { country: 'spain', numero: '+34910601755' },

@@ -144,6 +144,7 @@ export default {
     calls: 'Ligações:',
     countries: {
       argentina: 'Argentina',
+      brazil: 'Brasil',
       chile: 'Chile',
       colombia: 'Colômbia',
       spain: 'Espanha',

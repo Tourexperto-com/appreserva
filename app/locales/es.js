@@ -141,6 +141,7 @@ export default {
     calls: 'Llamadas:',
     countries: {
       argentina: 'Argentina',
+      brazil: 'Brasil',
       chile: 'Chile',
       colombia: 'Colombia',
       spain: 'España',
