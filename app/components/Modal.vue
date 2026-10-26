@@ -15,7 +15,7 @@
           <button
             type="button"
             class="flex items-center justify-center size-10 lg:size-12 bg-violeta hover:bg-violeta-2 rounded-lg text-white transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta"
-            aria-label="Cerrar"
+            :aria-label="t('common.close')"
             @click="close"
           >
             <Icon name="material-symbols:close-rounded" class="size-6!" />
@@ -37,6 +37,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:modelValue'])
+
+const { t } = useLocale()
 
 const dialogRef = ref(null)
 

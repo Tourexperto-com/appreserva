@@ -12,18 +12,18 @@
       <ButtonIconAction
         to="/"
         icon="material-symbols:keyboard-arrow-left-rounded"
-        label="Volver a mis viajes"
+        :label="t('reserva.backToTrips')"
       />
 
       <div class="shrink-0 flex md:hidden items-center gap-2">
         <ButtonIconAction
           to="/instalar"
           icon="material-symbols:info-outline-rounded"
-          label="Cómo descargar la app"
+          :label="t('common.howToInstall')"
         />
         <ButtonIconAction
           icon="material-symbols:logout-rounded"
-          label="Cerrar sesión"
+          :label="t('common.logout')"
           @click="$emit('logout')"
         />
       </div>
@@ -47,6 +47,7 @@ const props = defineProps({
 
 defineEmits(['logout'])
 
+const { t } = useLocale()
 const { imgSrc } = useImageUrl()
 
 const image = computed(() => imgSrc(props.reserva.img, props.reserva.main_image))

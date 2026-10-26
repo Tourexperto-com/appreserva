@@ -10,14 +10,14 @@
       <ButtonIconAction
         to="/instalar"
         icon="material-symbols:info-outline-rounded"
-        label="Cómo instalar la app"
+        :label="t('auth.howToInstall')"
         class="self-start relative lg:hidden"
       />
 
       <div class="w-full flex flex-col gap-6 md:gap-12 relative">
         <NuxtImg src="/images/logo.svg" alt="Tour Experto" class="w-25 md:w-50" />
         <p class="text-white text-[22px] lg:text-[32px] font-bold text-balance">
-          Tu próximo viaje, organizado al detalle.
+          {{ t('auth.tagline') }}
         </p>
       </div>
     </div>
@@ -29,3 +29,7 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const { t } = useLocale()
+</script>

@@ -3,7 +3,7 @@
     <div class="flex items-center gap-4">
       <Avatar :name="name" size="xl" />
       <div class="min-w-0 flex flex-col">
-        <span class="text-violeta-texto text-sm font-medium">Hola,</span>
+        <span class="text-violeta-texto text-sm font-medium">{{ t('common.hello') }}</span>
         <span class="text-morado text-xl font-bold truncate">{{ name }}</span>
       </div>
     </div>
@@ -28,7 +28,7 @@
       class="w-full flex items-center justify-center gap-4 mt-auto bg-gris hover:bg-morado rounded-md text-white text-base font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta px-6 py-3.5"
       @click="$emit('logout')"
     >
-      Cerrar sesión
+      {{ t('common.logout') }}
       <Icon name="material-symbols:logout-rounded" />
     </button>
   </aside>
@@ -41,6 +41,8 @@ defineProps({
 })
 
 defineEmits(['logout'])
+
+const { t } = useLocale()
 
 const route = useRoute()
 </script>

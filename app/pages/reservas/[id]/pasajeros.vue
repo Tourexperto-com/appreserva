@@ -8,8 +8,8 @@
       :pending="pending"
       :error="error"
       :empty="!pasajeros?.length"
-      error-text="No se pudieron cargar los pasajeros."
-      empty-text="Todavía no hay pasajeros cargados."
+      :error-text="t('passengers.error')"
+      :empty-text="t('passengers.empty')"
     >
       <ul class="w-full flex flex-col gap-6 md:gap-9 lg:gap-10">
         <li v-for="(pasajero, i) in pasajeros" :key="pasajero.id || i">
@@ -26,19 +26,19 @@
 
             <dl class="w-full grid grid-cols-2 gap-3 pl-13">
               <div v-if="pasajero.nro_pasaporte" class="flex flex-col">
-                <dt class="text-gris text-xs lg:text-sm font-medium">Pasaporte</dt>
+                <dt class="text-gris text-xs lg:text-sm font-medium">{{ t('passengers.passport') }}</dt>
                 <dd class="font-inter text-morado text-sm lg:text-base font-medium">{{ pasajero.nro_pasaporte }}</dd>
               </div>
               <div v-if="pasajero.fecha_nacimiento" class="flex flex-col">
-                <dt class="text-gris text-xs lg:text-sm font-medium">Nacimiento</dt>
+                <dt class="text-gris text-xs lg:text-sm font-medium">{{ t('passengers.birth') }}</dt>
                 <dd class="font-inter text-morado text-sm lg:text-base font-medium">{{ formatFecha(pasajero.fecha_nacimiento) }}</dd>
               </div>
               <div v-if="pasajero.nacionalidad" class="flex flex-col">
-                <dt class="text-gris text-xs lg:text-sm font-medium">Nacionalidad</dt>
+                <dt class="text-gris text-xs lg:text-sm font-medium">{{ t('passengers.nationality') }}</dt>
                 <dd class="text-morado text-sm lg:text-base font-semibold">{{ pasajero.nacionalidad }}</dd>
               </div>
               <div v-if="pasajero.genero" class="flex flex-col">
-                <dt class="text-gris text-xs lg:text-sm font-medium">Género</dt>
+                <dt class="text-gris text-xs lg:text-sm font-medium">{{ t('passengers.gender') }}</dt>
                 <dd class="text-morado text-sm lg:text-base font-semibold">{{ pasajero.genero }}</dd>
               </div>
             </dl>
@@ -51,6 +51,7 @@
 
 <script setup>
 const route = useRoute()
+const { t } = useLocale()
 
 const { data: pasajeros, pending, error } = useReservaPasajeros(route.params.id)
 
@@ -58,8 +59,8 @@ const open = reactive({})
 
 const intro = computed(() => {
   const total = pasajeros.value?.length || 0
-  if (!total) return 'Pasajeros incluidos en esta reserva.'
-  return `${total} ${total === 1 ? 'pasajero incluido' : 'pasajeros incluidos'} en esta reserva. Tocá uno para ver el detalle del documento.`
+  if (!total) return t('passengers.intro')
+  return total === 1 ? t('passengers.introOne') : t('passengers.introMany', { n: total })
 })
 
 function fullName(pasajero) {

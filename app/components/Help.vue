@@ -4,8 +4,12 @@
       <Icon name="material-symbols:headset-mic-outline-rounded" class="size-6! lg:size-7! text-white" />
     </div>
     <div class="min-w-0 flex-1 flex flex-col justify-center gap-0.5 lg:gap-2">
-      <p class="text-morado text-sm lg:text-base font-bold">¿Necesitás ayuda?</p>
-      <p class="text-gris text-xs lg:text-sm font-medium">Hablá con tu experto cuando lo necesites</p>
+      <p class="text-morado text-sm lg:text-base font-bold">{{ t('help.title') }}</p>
+      <p class="text-gris text-xs lg:text-sm font-medium">{{ t('help.text') }}</p>
     </div>
   </div>
 </template>
+
+<script setup>
+const { t } = useLocale()
+</script>

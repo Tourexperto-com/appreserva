@@ -3,11 +3,11 @@
     <template v-if="error">
       <p role="alert" class="text-error text-sm">{{ error }}</p>
       <ButtonPrimary to="/login">
-        Volver a ingresar
+        {{ t('verify.retry') }}
       </ButtonPrimary>
     </template>
 
-    <p v-else class="text-gris text-sm">Verificando acceso…</p>
+    <p v-else class="text-gris text-sm">{{ t('verify.checking') }}</p>
   </div>
 </template>
 
@@ -15,19 +15,20 @@
 definePageMeta({ layout: 'auth' })
 
 const { verify } = useAuth()
+const { t } = useLocale()
 const route = useRoute()
 const error = ref('')
 
 const token = route.query.token
 
 if (!token) {
-  error.value = 'Enlace inválido.'
+  error.value = t('common.invalidLink')
 } else {
   try {
     await verify(token)
     await navigateTo('/')
   } catch {
-    error.value = 'El enlace expiró o no es válido.'
+    error.value = t('verify.expired')
   }
 }
 </script>

@@ -4,11 +4,11 @@
   </div>
 
   <p v-else-if="error" role="alert" class="text-error text-sm">
-    {{ errorText }}
+    {{ errorText || t('state.error') }}
   </p>
 
   <p v-else-if="empty" class="text-gris text-sm">
-    {{ emptyText }}
+    {{ emptyText || t('state.empty') }}
   </p>
 
   <slot v-else />
@@ -20,7 +20,9 @@ defineProps({
   error: { type: [Object, Error, null], default: null },
   empty: Boolean,
   rows: { type: Number, default: 3 },
-  errorText: { type: String, default: 'No se pudo cargar la información.' },
-  emptyText: { type: String, default: 'No hay información para mostrar.' }
+  errorText: { type: String, default: '' },
+  emptyText: { type: String, default: '' }
 })
+
+const { t } = useLocale()
 </script>

@@ -15,6 +15,8 @@
 - **`/auth/session`**: los tres consumidores de sesión ya lo usan, pero está
   verificado sólo contra el mock. Confirmar que existe en el back real y que
   devuelve 401 sin sesión (pedido en `docs/pedido-back-agente.md`).
+- **`idioma` en `/auth/session`**: sin eso, un cliente de Brasil ve `/verify`
+  y "Mis viajes" en español hasta abrir una reserva (ver `docs/idioma.md`).
 - **Ícono de aéreo**: los demás de "Tu tour incluye" son SVG oficiales bajados a
   `public/images/incluye/`, pero el de aéreo no existe en el bucket y quedó con
   `material-symbols`. Pedirlo a diseño y dejarlo caer en esa carpeta.

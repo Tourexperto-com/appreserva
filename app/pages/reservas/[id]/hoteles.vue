@@ -1,16 +1,15 @@
 <template>
   <div class="w-full flex flex-col gap-6 md:gap-9 lg:gap-10">
     <p class="text-violeta-texto text-xs lg:text-base font-medium">
-      Tu alojamiento por destino. Podrás ser alojado en cualquiera de nuestros hoteles seleccionados
-      ya que la asignación depende de disponibilidad y estacionalidad.
+      {{ t('hotels.intro') }}
     </p>
 
     <State
       :pending="pending"
       :error="error"
       :empty="!hoteles?.length"
-      error-text="No se pudieron cargar los hoteles."
-      empty-text="Todavía no hay hoteles asignados."
+      :error-text="t('hotels.error')"
+      :empty-text="t('hotels.empty')"
     >
       <div class="w-full flex flex-col gap-6 md:gap-9 lg:gap-10">
         <Accordion
@@ -24,7 +23,7 @@
             :key="hotel.nombre || j"
             icon="material-symbols:bed-outline-rounded"
             :title="hotel.nombre"
-            :subtitle="hotel.estado || 'Previsto o similar'"
+            :subtitle="hotel.estado || t('hotels.planned')"
           />
         </Accordion>
       </div>
@@ -34,6 +33,7 @@
 
 <script setup>
 const route = useRoute()
+const { t } = useLocale()
 
 const { data: hoteles, pending, error } = useReservaHoteles(route.params.id)
 

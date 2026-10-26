@@ -25,8 +25,9 @@ Tailwind se configura en `app/assets/css/main.css` con `@theme`. **No hay
 - Componentes: nombre corto, agrupados por carpeta de dominio. Sin prefijos
   `Base`/`App` — la carpeta ya da el namespace (`components/reserva/Hero.vue` →
   `<ReservaHero>`).
-- Código en inglés (props, funciones, variables). **Strings de UI en español
-  rioplatense** (voseo: "Tocá", "Iniciá", "tenés").
+- Código en inglés (props, funciones, variables). **Strings de UI en
+  `app/locales/es.js` (rioplatense, voseo) y `app/locales/pt.js`**, nunca
+  literales en el componente: `t('clave')` de `useLocale()`.
 - `State.vue` centraliza pending/error/empty. No repetir esos tres `v-if` en las
   páginas.
 
@@ -66,6 +67,8 @@ Leer según la tarea (el detalle salió de este archivo para no cargarlo siempre
 - `docs/mock.md` — al usar o mantener el mock: por qué no llega a prod, sesión
   simulada (`mock_session`).
 - `docs/pwa.md` — al tocar manifest, service worker, íconos o la instalación (iOS).
+- `docs/idioma.md` — al sumar o cambiar cualquier texto de UI: español/portugués
+  por segmento Brasil, de dónde sale el idioma, qué queda sin traducir.
 - `docs/contacto.md` — al tocar `/contacto`, `DatosTex` o el agente de viajes.
 - `docs/pendiente.md` — campos sin confirmar con el back, mail del agente,
   `cursor-pointer`: leer antes de tocar esos campos o `/auth/session`.

@@ -30,7 +30,7 @@
 
         <span v-if="reserva.cant_pasajeros" class="flex items-center gap-2 font-inter text-gris text-xs lg:text-sm font-medium">
           <Icon name="material-symbols:groups-outline-rounded" class="shrink-0 size-4! lg:size-5! text-morado" />
-          {{ reserva.cant_pasajeros }} pax
+          {{ t('trips.pax', { n: reserva.cant_pasajeros }) }}
         </span>
       </div>
 
@@ -44,6 +44,7 @@ const props = defineProps({
   reserva: { type: Object, required: true }
 })
 
+const { t } = useLocale()
 const { imgSrc } = useImageUrl()
 
 const image = computed(() => imgSrc(props.reserva.img, props.reserva.main_image))
@@ -57,6 +58,6 @@ const dateRange = computed(() => {
 const duration = computed(() => {
   const { duration_days: days, duration_nights: nights } = props.reserva
   if (!days) return ''
-  return nights ? `${days} días - ${nights} noches` : `${days} días`
+  return nights ? t('trips.daysNights', { days, nights }) : t('trips.days', { days })
 })
 </script>

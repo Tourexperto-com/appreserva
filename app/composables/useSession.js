@@ -4,11 +4,13 @@ export function useSession() {
   // email del staff cuando la sesión es un "ver como"; vacío en la sesión normal del cliente
   const staff = useState('session:staff', () => '')
   const { logout } = useAuth()
+  const { setLocale } = useLocale()
 
   function apply(usuario) {
     name.value = usuario?.nombre || ''
     email.value = usuario?.email || ''
     staff.value = usuario?.staff || ''
+    setLocale(usuario?.idioma)
   }
 
   async function loadName() {

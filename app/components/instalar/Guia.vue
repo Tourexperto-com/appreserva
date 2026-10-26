@@ -5,14 +5,14 @@
         v-if="backTo"
         :to="backTo"
         icon="material-symbols:keyboard-arrow-left-rounded"
-        label="Volver"
+        :label="t('common.back')"
       />
       <h1 class="text-morado text-[22px] lg:text-3xl font-bold text-balance">
-        ¿Cómo descargar la app en tu celular?
+        {{ t('install.title') }}
       </h1>
     </div>
 
-    <section v-for="guide in guides" :key="guide.title" class="w-full flex flex-col gap-3">
+    <section v-for="guide in t('install.guides')" :key="guide.title" class="w-full flex flex-col gap-3">
       <h2 class="text-morado text-base font-semibold">{{ guide.title }}</h2>
       <ol class="w-full flex flex-col list-decimal text-morado text-xs md:text-sm font-medium pl-4.5">
         <li v-for="(step, i) in guide.steps" :key="i">{{ step }}</li>
@@ -25,7 +25,8 @@
 
 <script setup>
 defineProps({
-  guides: { type: Array, required: true },
   backTo: { type: String, default: '' }
 })
+
+const { t } = useLocale()
 </script>

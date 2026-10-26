@@ -35,6 +35,7 @@
 <script setup>
 const route = useRoute()
 const { name, email, staff, loadName, signOut } = useSession()
+const { t } = useLocale()
 
 onMounted(loadName)
 
@@ -43,11 +44,11 @@ const links = computed(() => {
   if (!id) return []
 
   return [
-    { to: `/reservas/${id}`, label: 'Detalle', icon: 'material-symbols:location-on-outline-rounded' },
-    { to: `/reservas/${id}/pasajeros`, label: 'Pasajeros', icon: 'material-symbols:groups-outline-rounded' },
-    { to: `/reservas/${id}/hoteles`, label: 'Hoteles', icon: 'material-symbols:bed-outline-rounded' },
-    { to: `/reservas/${id}/documentos`, label: 'Documentos', icon: 'material-symbols:description-outline-rounded' },
-    { to: `/reservas/${id}/contacto`, label: 'Contacto', icon: 'material-symbols:call-outline-rounded' }
+    { to: `/reservas/${id}`, label: t('nav.detail'), icon: 'material-symbols:location-on-outline-rounded' },
+    { to: `/reservas/${id}/pasajeros`, label: t('nav.passengers'), icon: 'material-symbols:groups-outline-rounded' },
+    { to: `/reservas/${id}/hoteles`, label: t('nav.hotels'), icon: 'material-symbols:bed-outline-rounded' },
+    { to: `/reservas/${id}/documentos`, label: t('nav.documents'), icon: 'material-symbols:description-outline-rounded' },
+    { to: `/reservas/${id}/contacto`, label: t('nav.contact'), icon: 'material-symbols:call-outline-rounded' }
   ]
 })
 </script>

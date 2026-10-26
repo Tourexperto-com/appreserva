@@ -3,7 +3,7 @@
     <div class="min-w-0 flex items-center gap-3">
       <Avatar :name="name" size="lg" />
       <div class="min-w-0 flex flex-col">
-        <span class="text-violeta-texto text-xs font-medium">Hola,</span>
+        <span class="text-violeta-texto text-xs font-medium">{{ t('common.hello') }}</span>
         <span class="text-morado text-base font-bold truncate">{{ name }}</span>
       </div>
     </div>
@@ -12,11 +12,11 @@
       <ButtonIconAction
         to="/instalar"
         icon="material-symbols:info-outline-rounded"
-        label="Cómo descargar la app"
+        :label="t('common.howToInstall')"
       />
       <ButtonIconAction
         icon="material-symbols:logout-rounded"
-        label="Cerrar sesión"
+        :label="t('common.logout')"
         @click="$emit('logout')"
       />
     </div>
@@ -29,4 +29,6 @@ defineProps({
 })
 
 defineEmits(['logout'])
+
+const { t } = useLocale()
 </script>

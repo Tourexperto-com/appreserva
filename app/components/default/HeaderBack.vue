@@ -3,7 +3,7 @@
     <ButtonIconAction
       :to="to"
       icon="material-symbols:keyboard-arrow-left-rounded"
-      label="Volver"
+      :label="t('common.back')"
     />
   </header>
 </template>
@@ -12,4 +12,6 @@
 defineProps({
   to: { type: String, default: '/login' }
 })
+
+const { t } = useLocale()
 </script>

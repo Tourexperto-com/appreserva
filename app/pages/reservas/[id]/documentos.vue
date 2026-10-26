@@ -1,15 +1,15 @@
 <template>
   <div class="w-full flex flex-col gap-6 md:gap-9 lg:gap-10">
     <p class="text-violeta-texto text-xs lg:text-base font-medium">
-      Documentos de viaje listos para descargar y mostrar en destino.
+      {{ t('documents.intro') }}
     </p>
 
     <State
       :pending="pending"
       :error="error"
       :empty="!vouchers?.length"
-      error-text="No se pudieron cargar los documentos."
-      empty-text="Todavía no hay documentos disponibles."
+      :error-text="t('documents.error')"
+      :empty-text="t('documents.empty')"
     >
       <ul class="w-full flex flex-col gap-3">
         <li v-for="(voucher, i) in vouchers" :key="voucher.id || i">
@@ -19,7 +19,7 @@
                 v-if="isPreviewable(voucher)"
                 type="button"
                 class="flex items-center justify-center size-10 lg:size-12 bg-morado hover:bg-morado-hover rounded-lg text-white transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta"
-                :aria-label="`Ver ${voucher.nombre}`"
+                :aria-label="t('common.view', { name: voucher.nombre })"
                 @click="preview = voucher"
               >
                 <Icon name="material-symbols:visibility-outline-rounded" size="24" />
@@ -28,7 +28,7 @@
                 :href="voucher.url_s3"
                 download
                 class="flex items-center justify-center size-10 lg:size-12 bg-morado hover:bg-morado-hover rounded-lg text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta"
-                :aria-label="`Descargar ${voucher.nombre}`"
+                :aria-label="t('common.download', { name: voucher.nombre })"
               >
                 <Icon name="material-symbols:download-rounded" size="24" />
               </a>
@@ -44,7 +44,7 @@
           :href="preview?.url_s3"
           download
           class="flex items-center justify-center size-10 lg:size-12 bg-morado hover:bg-morado-hover rounded-lg text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta"
-          :aria-label="`Descargar ${preview?.nombre}`"
+          :aria-label="t('common.download', { name: preview?.nombre })"
         >
           <Icon name="material-symbols:download-rounded" size="24" />
         </a>
@@ -62,6 +62,7 @@
 
 <script setup>
 const route = useRoute()
+const { t } = useLocale()
 
 const { data: vouchers, pending, error } = useReservaVouchers(route.params.id)
 
