@@ -4,7 +4,7 @@ Magic link: `/login` pide el mail → `/verify` valida el token del link y deja 
 cookie de sesión. El cliente nunca ve el token del backend.
 
 Los tres consumidores de sesión pegan a **`GET /auth/session`** (verificar que
-exista en el back real — ver `docs/pedido-back-agente.md`):
+exista en el back real — ver `tickets/agente-y-sesion-backend.md`):
 
 - `middleware/auth.js` protege las rutas con datos. Redirige a `/login` con **401
   y con 403** — el back devuelve 403 cuando el `BACKEND_TOKEN` del server está

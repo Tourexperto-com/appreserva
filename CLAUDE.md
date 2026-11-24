@@ -72,5 +72,5 @@ Leer según la tarea (el detalle salió de este archivo para no cargarlo siempre
 - `docs/contacto.md` — al tocar `/contacto`, `DatosTex` o el agente de viajes.
 - `docs/pendiente.md` — campos sin confirmar con el back, mail del agente,
   `cursor-pointer`: leer antes de tocar esos campos o `/auth/session`.
-- `docs/pedido-back-agente.md` — el pedido al equipo de back (mail del agente,
-  categoría hotelera, `/auth/session`).
+- `tickets/` — pedidos al equipo de back, uno por tema (`<tema>-backend.md`):
+  mail del agente y `/auth/session`, punto de encuentro.

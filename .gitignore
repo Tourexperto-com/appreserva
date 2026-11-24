@@ -15,3 +15,6 @@ server/utils/mock-data.ts
 
 # Claude Code
 .claude/
+
+# Tickets para back, solo local
+tickets/
