@@ -27,6 +27,13 @@
       />
     </div>
 
+    <section v-if="reserva.punto_encuentro?.trim()" class="w-full flex flex-col gap-3">
+      <h2 class="text-morado text-xl lg:text-[28px] font-semibold">{{ t('detail.meetingPoint') }}</h2>
+      <p class="text-violeta-texto text-xs lg:text-base font-medium whitespace-pre-line">
+        {{ reserva.punto_encuentro.trim() }}
+      </p>
+    </section>
+
     <section v-if="reserva.ciudades_recorrido?.length" class="w-full flex flex-col gap-3">
       <h2 class="text-morado text-xl lg:text-[28px] font-semibold">{{ t('detail.route') }}</h2>
       <p class="text-violeta-texto text-xs lg:text-base font-medium">

@@ -90,6 +90,7 @@ export default {
     nights: '{n} noches',
     passengers: 'Pasajeros',
     adults: '{n} adultos',
+    meetingPoint: 'Punto de encuentro:',
     route: 'Recorre:',
     includes: 'Tu tour incluye:',
     category: 'Categoría:',
