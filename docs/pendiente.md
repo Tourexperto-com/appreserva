@@ -14,8 +14,9 @@
   devuelve 401 sin sesión (pedido en `tickets/agente-y-sesion-backend.md`).
 - **`idioma` en `/auth/session`**: sin eso, un cliente de Brasil ve `/verify`
   y "Mis viajes" en español hasta abrir una reserva (ver `docs/idioma.md`).
-- **Punto de encuentro**: el detalle lee `punto_encuentro` y oculta la sección si
-  viene vacío. Pedido en `tickets/punto-encuentro-backend.md`.
+- **Punto de encuentro**: el back ya lo devuelve en `GET /reservas/:id` (sale del
+  campo `punto_encuentro` de la oportunidad). Falta correr la migración en la base
+  y que las reservas existentes se re-sincronicen por webhook para que aparezca.
 - **Ícono de aéreo**: los demás de "Tu tour incluye" son SVG oficiales bajados a
   `public/images/incluye/`, pero el de aéreo no existe en el bucket y quedó con
   `material-symbols`. Pedirlo a diseño y dejarlo caer en esa carpeta.
